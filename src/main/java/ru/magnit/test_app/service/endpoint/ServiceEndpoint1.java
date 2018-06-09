@@ -22,19 +22,32 @@ import ru.magnit.test_app.model.Point;
 import ru.magnit.test_app.model.PointGraph;
 import ru.magnit.test_app.model.Route;
 
+/**
+ * Класс-сервис 1 (Jersey). Получение списка точек графа, добавление маршрута,
+ * список маршрутов, маршрут.
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Component
 @Path("/service1")
 public class ServiceEndpoint1 {
 
+    // связываемся с репозиторием Route, с квалификатором для oracle1
     @Autowired
     @Qualifier("oracle1RR")
     RouteRepository routeRepository;
-    
+
+    // связываемся с репозиторием PointGraph, с квалификатором для oracle1
     @Autowired
     @Qualifier("oracle1PGR")
     PointGraphRepository pointGraphRepository;
 
-    
+    /**
+     * Метод получения списка связей между точками графа (файл data.csv)
+     *
+     * @return List<PointGrap> список связей между точками графа
+     */
     @GET
     @PermitAll
     @Path("/graph")
@@ -43,12 +56,18 @@ public class ServiceEndpoint1 {
     public List<PointGraph> listGraphPoints() {
 
         LogManager.getLogger().info("Calling /service1/graph");
-        
+
         List<PointGraph> graph = (List<PointGraph>) pointGraphRepository.findAll();
         LogManager.getLogger().info("Graph count: " + graph.size());
         return graph;
     }
-    
+
+    /**
+     * Метод добавления маршута
+     *
+     * @param points Список точек маршрута
+     * @return Integer Идентификатор добавленного маршрута
+     */
     @POST
     @PermitAll
     @Path("/add_route")
@@ -58,10 +77,10 @@ public class ServiceEndpoint1 {
 
         LogManager.getLogger().info("Calling /service1/add_route");
         LogManager.getLogger().info("Points count: " + points.size());
-        
+
         List<PointGraph> graph = (List<PointGraph>) pointGraphRepository.findAll();
         Integer calculatedTime = TimeCalculator.calcTime(graph, points);
-        
+
         Route route = new Route();
         if (!calculatedTime.equals(-1)) {
             route.setIsReady('Y');
@@ -69,7 +88,7 @@ public class ServiceEndpoint1 {
             route.setIsReady('N');
         }
         route.setTime(BigInteger.valueOf(calculatedTime));
-        
+
         List<Point> pointList = new ArrayList<>();
         for (Integer p : points) {
             Point point = new Point();
@@ -77,16 +96,21 @@ public class ServiceEndpoint1 {
             point.setRouteId(route);
             pointList.add(point);
         }
-        
+
         route.setPointList(pointList);
-        
+
         routeRepository.save(route);
-        
+
         LogManager.getLogger().info("Create route: " + route.toString());
-        
+
         return route.getId().intValue();
     }
-    
+
+    /**
+     * Метод получения списка маршрутов (с точками маршрута)
+     *
+     * @return List<Route>
+     */
     @GET
     @PermitAll
     @Path("/list_routes")
@@ -95,12 +119,18 @@ public class ServiceEndpoint1 {
     public List<Route> getRoutes() {
 
         LogManager.getLogger().info("Calling /service1/list_routes");
-        
+
         List<Route> routes = (List<Route>) routeRepository.findAll();
         LogManager.getLogger().info("Routes count: " + routes.size());
         return routes;
     }
-    
+
+    /**
+     * Метод получения маршрута
+     *
+     * @param routeId Идентификатор маршрута
+     * @return Route Маршрут
+     */
     @POST
     @PermitAll
     @Path("/get_route")
@@ -109,7 +139,7 @@ public class ServiceEndpoint1 {
     public Route getRoute(Integer routeId) {
 
         LogManager.getLogger().info("Calling /service1/get_route");
-        
+
         Optional<Route> route = routeRepository.findById(BigInteger.valueOf(routeId));
         if (route.isPresent()) {
             return route.get();
@@ -117,5 +147,5 @@ public class ServiceEndpoint1 {
             return null;
         }
     }
-    
+
 }

@@ -16,6 +16,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Конфигурация для доступа к Oracle 2
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -27,10 +33,16 @@ public class Oracle2Config {
     @Autowired
     private Environment env;
 
+    /**
+     * Метод конфигурации dataSource
+     *
+     * @return DataSource Источник данных СУБД 2 по настройкам из
+     * application.properties
+     */
     @Bean(name = "dataSource2")
     @ConfigurationProperties(prefix = "db2.datasource")
     public DataSource dataSource() {
-        
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("db2.datasource.driver-class-name"));
         dataSource.setUrl(env.getProperty("db2.datasource.url"));
@@ -40,6 +52,14 @@ public class Oracle2Config {
         return dataSource;
     }
 
+    /**
+     * Метод конфигурации entityManagerFactory
+     *
+     * @param builder
+     * @param dataSource
+     * @return LocalContainerEntityManagerFactoryBean Менеджер работы с
+     * сущностями (моделью ru.magnit.test_app.model) СУБД
+     */
     @Bean(name = "entityManagerFactory2")
     public LocalContainerEntityManagerFactoryBean
             entityManagerFactory(
@@ -53,6 +73,12 @@ public class Oracle2Config {
                 .build();
     }
 
+    /**
+     * Метод конфигурации transactionManager
+     *
+     * @param entityManagerFactory
+     * @return PlatformTransactionManager Менеджер транзакций
+     */
     @Bean(name = "transactionManager2")
     public PlatformTransactionManager transactionManager(
             @Qualifier("entityManagerFactory2") EntityManagerFactory entityManagerFactory

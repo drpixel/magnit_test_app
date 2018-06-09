@@ -18,6 +18,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Сущность "Маршрут"
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Entity
 @Table(name = "ROUTE")
 @XmlRootElement

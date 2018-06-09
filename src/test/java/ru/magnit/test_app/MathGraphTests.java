@@ -15,6 +15,9 @@ import ru.magnit.test_app.dao.oracle_1.PointGraphRepository;
 import ru.magnit.test_app.math.TimeCalculator;
 import ru.magnit.test_app.model.PointGraph;
 
+/**
+ * Класс-тест для тестирования расчета суммы времени между вершинами графа
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration

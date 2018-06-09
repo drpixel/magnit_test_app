@@ -14,6 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+/**
+ * Класс-тест для тестирования методов Сервиса 1
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
@@ -24,6 +27,9 @@ public class Service1Tests {
 
     private final TestRestTemplate restTemplate = new TestRestTemplate();
 
+    /**
+     * Метод тестирования получения списка связей между вершинами графа
+     */
     @Test
     public void testGetGraph() {
         
@@ -35,6 +41,9 @@ public class Service1Tests {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
     }
     
+    /**
+     * Метод тестирования добавления маршрута с точками
+     */
     @Test
     public void testAddRoute() {
         
@@ -48,6 +57,9 @@ public class Service1Tests {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
     }
     
+    /**
+     * Метод тестирования получения списка маршрутов с точками
+     */
     @Test
     public void testListRoutes() {
         
@@ -59,6 +71,9 @@ public class Service1Tests {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
     }
     
+    /**
+     * Метод тестирования получения маршрута по его идентификатору
+     */
     @Test
     public void testGetRoute() {
         

@@ -11,6 +11,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Сущность "Связь в графе" (данные из файла data.csv)
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Entity
 @Table(name = "POINT_GRAPH")
 @XmlRootElement

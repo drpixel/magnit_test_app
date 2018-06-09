@@ -17,6 +17,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Конфигурация для доступа к Oracle 1
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -27,12 +33,18 @@ public class Oracle1Config {
 
     @Autowired
     private Environment env;
-    
+
+    /**
+     * Метод конфигурации dataSource
+     *
+     * @return DataSource Источник данных СУБД 1 по настройкам из
+     * application.properties
+     */
     @Primary
     @Bean(name = "dataSource")
     @ConfigurationProperties(prefix = "db1.datasource")
     public DataSource dataSource() {
-        
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("db1.datasource.driver-class-name"));
         dataSource.setUrl(env.getProperty("db1.datasource.url"));
@@ -42,6 +54,14 @@ public class Oracle1Config {
         return dataSource;
     }
 
+    /**
+     * Метод конфигурации entityManagerFactory
+     *
+     * @param builder
+     * @param dataSource
+     * @return LocalContainerEntityManagerFactoryBean Менеджер работы с
+     * сущностями (моделью ru.magnit.test_app.model) СУБД 
+     */
     @Primary
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean
@@ -56,6 +76,12 @@ public class Oracle1Config {
                 .build();
     }
 
+    /**
+     * Метод конфигурации transactionManager
+     *
+     * @param entityManagerFactory
+     * @return PlatformTransactionManager Менеджер транзакций
+     */
     @Primary
     @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManager(

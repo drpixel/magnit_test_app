@@ -5,6 +5,13 @@ import org.springframework.stereotype.Component;
 import ru.magnit.test_app.service.endpoint.ServiceEndpoint1;
 import ru.magnit.test_app.service.endpoint.ServiceEndpoint2;
 
+/**
+ * Класс для конфигурации сервисов Jersey (регистрация эндпойнтов, фильтров,
+ * пр.)
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Component
 public class ServiceConfig extends ResourceConfig {
 
@@ -13,5 +20,4 @@ public class ServiceConfig extends ResourceConfig {
         register(ServiceEndpoint1.class);
         register(ServiceEndpoint2.class);
     }
-    
 }

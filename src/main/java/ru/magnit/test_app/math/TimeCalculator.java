@@ -8,25 +8,39 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import ru.magnit.test_app.model.PointGraph;
 
+/**
+ * Класс для расчета расстояний между вершинами в графе
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 public class TimeCalculator {
 
+    /**
+     * Метод расчета суммы времени между списком вершин графа
+     *
+     * @param pointGraph Список связей между вершинами графа (точками) и
+     * информацией о времени
+     * @param points Список точек для расчета времени
+     * @return Integer Время на маршрут (-1 если не достижимо)
+     */
     public static Integer calcTime(List<PointGraph> pointGraph, List<Integer> points) {
 
-        // sort points
+        // сортируем точки перед расчета (от меньшего к большему)
         Collections.sort(points, (Integer o1, Integer o2) -> o2.compareTo(o1));
 
-        // build and fill graph structure
+        // создаем граф и заполняем его структуру информацией о времени между точками
         MutableValueGraph<Integer, Integer> weightedGraph = ValueGraphBuilder.directed().build();
         pointGraph.forEach((pg) -> {
             weightedGraph.putEdgeValue(pg.getIdPointOne().intValue(), pg.getIdPointTwo().intValue(), pg.getTimeInfo().intValue());
         });
 
-        // print edges points
+        // распечатаем заполненнй граф
         weightedGraph.edges().forEach((ep) -> {
             LogManager.getLogger().info("EP Graph: " + ep.toString());
         });
-        
-        // calculate distances summ between points
+
+        // рассчитаем время
         boolean isFirstPoint = true;
         Integer prevPoint = null;
         Integer summDistance = 0;
@@ -46,7 +60,7 @@ public class TimeCalculator {
             }
             prevPoint = p;
         }
-        
+
         return summDistance;
     }
 }

@@ -5,6 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/**
+ * Главный класс приложения Spring Boot
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @SpringBootApplication
 public class TestApplication extends SpringBootServletInitializer {
 

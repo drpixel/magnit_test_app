@@ -16,6 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ru.magnit.test_app.service.SecurityFilter;
 
+/**
+ * Класс-тест для тестирования методов Сервиса 2
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
@@ -23,32 +26,40 @@ import ru.magnit.test_app.service.SecurityFilter;
 public class Service2Tests {
 
     private final String url = "http://localhost:8080/service2";
-    
+
+    /**
+     * Метод для проверки сервиса получения суммы времени. С авторизацией
+     * (HttpStatus.OK)
+     */
     @Test
     public void testGetRouteTimeAuth() {
-        
+
         List<Integer> points = new ArrayList<>(Arrays.asList(2, 5, 7, 1));
 
         TestRestTemplate restTemplate = new TestRestTemplate(SecurityFilter.AllowedUser.userLogin, SecurityFilter.AllowedUser.userPassword);
         ResponseEntity<String> entity = restTemplate.postForEntity(this.url + "/get_points_time", points, String.class);
-        
+
         LogManager.getLogger().info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         LogManager.getLogger().info("testGetRouteTimeAuth(): " + entity.getBody());
-        
+
         assertEquals(HttpStatus.OK, entity.getStatusCode());
     }
-    
+
+    /**
+     * Метод для проверки сервиса получения суммы времени. Без авторизации
+     * (HttpStatus.NOT_FOUND)
+     */
     @Test
     public void testGetRouteTimeWithoutAuth() {
-        
+
         List<Integer> points = new ArrayList<>(Arrays.asList(2, 5, 7, 1));
 
         TestRestTemplate restTemplate = new TestRestTemplate();
         ResponseEntity<String> entity = restTemplate.postForEntity(this.url + "/get_points_time", points, String.class);
-        
+
         LogManager.getLogger().info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         LogManager.getLogger().info("testGetRouteTimeWithoutAuth(): " + entity.getBody());
-        
+
         assertEquals(HttpStatus.NOT_FOUND, entity.getStatusCode());
     }
 

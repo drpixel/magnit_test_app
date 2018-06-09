@@ -17,6 +17,12 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * Сущность "Точка" маршрута
+ *
+ * @author Dima Pixel
+ * @version 1.0
+ */
 @Entity
 @Table(name = "POINT")
 @XmlRootElement

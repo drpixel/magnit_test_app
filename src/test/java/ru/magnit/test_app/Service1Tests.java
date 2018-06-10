@@ -23,7 +23,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ActiveProfiles("test")
 public class Service1Tests {
 
-    private final String url = "http://localhost:8080/service1";
+    private final String url = "http://localhost:8080/api/service1";
 
     private final TestRestTemplate restTemplate = new TestRestTemplate();
 

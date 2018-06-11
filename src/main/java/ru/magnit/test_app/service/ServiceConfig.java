@@ -7,7 +7,6 @@ import javax.ws.rs.Path;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.wadl.internal.WadlResource;
-import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.stereotype.Component;
 import ru.magnit.test_app.service.endpoint.ServiceEndpoint1;
 import ru.magnit.test_app.service.endpoint.ServiceEndpoint2;
@@ -32,7 +31,7 @@ public class ServiceConfig extends ResourceConfig {
         // endpoints
         register(ServiceEndpoint1.class);
         register(ServiceEndpoint2.class);
-
+        
         // swagger
         this.register(ApiListingResource.class);
         this.register(SwaggerSerializers.class);

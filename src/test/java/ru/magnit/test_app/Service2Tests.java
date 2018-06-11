@@ -59,6 +59,7 @@ public class Service2Tests {
             TestRestTemplate restTemplate = new TestRestTemplate();
             ResponseEntity<String> entity = restTemplate.postForEntity(this.url + "/get_points_time", points, String.class);
             
+            assertEquals(true, false);
         } catch (ResourceAccessException ex) {
             LogManager.getLogger().info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             LogManager.getLogger().info("testGetRouteTimeAuth(): ResourceAccessException");

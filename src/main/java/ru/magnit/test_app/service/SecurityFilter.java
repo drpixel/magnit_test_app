@@ -63,8 +63,8 @@ public class SecurityFilter implements ContainerRequestFilter {
 
         Method method = resourceInfo.getResourceMethod();
 
-        // если метод из наших эндпойнтов
-        if (resourceInfo.getResourceClass().equals(ServiceEndpoint1.class) && 
+        // если метод наших эндпойнтов
+        if (resourceInfo.getResourceClass().equals(ServiceEndpoint1.class) || 
                 resourceInfo.getResourceClass().equals(ServiceEndpoint2.class)) {
             
             // если метод аннотирован не доступным для всех
@@ -76,31 +76,32 @@ public class SecurityFilter implements ContainerRequestFilter {
                     return;
                 }
 
-                // пробуем получить заголовок авторизации
-                final MultivaluedMap<String, String> headers = requestContext.getHeaders();
-                final List<String> authorization = headers.get("Authorization");
-
-                if (authorization == null || authorization.isEmpty()) {
-                    requestContext.abortWith(ACCESS_DENIED);
-                    return;
-                }
-
-                // пробуем получить информацию из базовой авторизации (base64)
-                final String encodedUserPassword = authorization.get(0).replaceFirst("Basic ", "");
-                String usernameAndPassword = null;
-                try {
-                    usernameAndPassword = new String(Base64.getDecoder().decode(encodedUserPassword));
-                } catch (Exception ex) {
-                    requestContext.abortWith(SERVER_ERROR);
-                    return;
-                }
-
-                final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
-                final String username = tokenizer.nextToken();
-                final String password = tokenizer.nextToken();
-
                 // если метод аннотирован конкретными ролями - проверяем роли
                 if (method.isAnnotationPresent(RolesAllowed.class)) {
+                    
+                    // пробуем получить заголовок авторизации
+                    final MultivaluedMap<String, String> headers = requestContext.getHeaders();
+                    final List<String> authorization = headers.get("Authorization");
+
+                    if (authorization == null || authorization.isEmpty()) {
+                        requestContext.abortWith(ACCESS_DENIED);
+                        return;
+                    }
+
+                    // пробуем получить информацию из базовой авторизации (base64)
+                    final String encodedUserPassword = authorization.get(0).replaceFirst("Basic ", "");
+                    String usernameAndPassword = null;
+                    try {
+                        usernameAndPassword = new String(Base64.getDecoder().decode(encodedUserPassword));
+                    } catch (Exception ex) {
+                        requestContext.abortWith(SERVER_ERROR);
+                        return;
+                    }
+
+                    final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
+                    final String username = tokenizer.nextToken();
+                    final String password = tokenizer.nextToken();
+                    
                     RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
                     Set<String> rolesSet = new HashSet<>(Arrays.asList(rolesAnnotation.value()));
 

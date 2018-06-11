@@ -52,7 +52,7 @@ public class ServiceEndpoint1 {
      * @return List<PointGrap> список связей между точками графа
      */
     @GET
-    @ApiOperation(value = "Метод получения списка связей между точками графа (файл data.csv)", response = List.class)
+    @ApiOperation(value = "Метод получения списка связей между точками графа (файл data.csv)", response = PointGraph.class, responseContainer = "List")
     @PermitAll
     @Path("/graph")
     @Produces(MediaType.APPLICATION_JSON)
@@ -117,7 +117,7 @@ public class ServiceEndpoint1 {
      * @return List<Route>
      */
     @GET
-    @ApiOperation(value = "Метод получения списка маршрутов (с точками маршрута)", response = List.class)
+    @ApiOperation(value = "Метод получения списка маршрутов (с точками маршрута)", response = Route.class, responseContainer = "List")
     @PermitAll
     @Path("/list_routes")
     @Produces(MediaType.APPLICATION_JSON)

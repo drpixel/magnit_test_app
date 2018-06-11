@@ -38,8 +38,8 @@ public class ServiceConfig extends ResourceConfig {
         this.register(SwaggerSerializers.class);
         BeanConfig config = new BeanConfig();
         config.setConfigId("magint-test-app-config");
-        config.setTitle("Manit test Application API");
-        config.setVersion("1.0.0");
+        config.setTitle("Magnit test Application API");
+        config.setVersion("1.0");
         config.setBasePath("/api");
         config.setResourcePackage("ru.magnit.test_app");
         config.setScan(true);

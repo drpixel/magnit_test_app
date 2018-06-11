@@ -5,6 +5,7 @@ import com.google.common.graph.ValueGraphBuilder;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import ru.magnit.test_app.model.PointGraph;
 
@@ -26,8 +27,11 @@ public class TimeCalculator {
      */
     public static Integer calcTime(List<PointGraph> pointGraph, List<Integer> points) {
 
-        // сортируем точки перед расчета (от меньшего к большему)
+        // сортируем точки перед расчетом (от меньшего к большему)
         Collections.sort(points, (Integer o1, Integer o2) -> o2.compareTo(o1));
+        
+        // удаляем дубликаты
+        List<Integer> dedupedPoints = points.stream().distinct().collect(Collectors.toList());
 
         // создаем граф и заполняем его структуру информацией о времени между точками
         MutableValueGraph<Integer, Integer> weightedGraph = ValueGraphBuilder.directed().build();
@@ -44,7 +48,7 @@ public class TimeCalculator {
         boolean isFirstPoint = true;
         Integer prevPoint = null;
         Integer summDistance = 0;
-        for (Integer p : points) {
+        for (Integer p : dedupedPoints) {
             if (isFirstPoint) {
                 isFirstPoint = false;
             } else {

@@ -17,8 +17,12 @@ $ java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
        -jar target/test_app-0.0.1-SNAPSHOT.jar
 ```
 
-## Опции
-Для визуального тестирования, расширения и документирования API можно добавить в проект библиотеку [Swagger](https://swagger.io/) (Swagger2, Swagger-UI), что позволит очень удобно документировать проект через аннотации и выполнять тестовые запросы к endpoint-сервисам через UI.
+При открытии в браузере [http://localhost:8080](http://localhost:8080) отобразится интерфейс визуального тестирования API [Swagger UI](https://swagger.io/)
+
+По адресу [http://localhost:8080/api/swagger.json](http://localhost:8080/api/swagger.json) находится описание сервисов в формате JSON
+
+По адресу [http://localhost:8080/api/application.wadl](http://localhost:8080/api/application.wadl) находится описание сервисов в формате WADL
+
 
 ## Настройки БД
 В папке /src/main/resources находятся два файла: schema_objects.sql - схема БД (схема в БД создастся автоматически), import_graph.sql - точки для добавления в схему (надо выполнять самостоятельно).
@@ -34,5 +38,6 @@ spring.jpa.hibernate.ddl-auto=update
 * Spring Boot (Каркас проекта)
 * Spring JPA (Для работы с СУБД)
 * Jersey (Для rs-сервисов)
+* Swagger2, Swagger-UI (Для документирования и тестирования API)
 * Guava (Для работы с графом)
 * Oracle (СУБД)

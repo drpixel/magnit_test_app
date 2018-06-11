@@ -1,5 +1,7 @@
 package ru.magnit.test_app.service.endpoint;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -22,6 +24,7 @@ import ru.magnit.test_app.model.PointGraph;
  * @version 1.0
  */
 @Component
+@Api(value = "Service 2 API")
 @Path("/service2")
 public class ServiceEndpoint2 {
 
@@ -37,6 +40,7 @@ public class ServiceEndpoint2 {
      * @return Integer Сумма времени между точками (-1 если не достижимо)
      */
     @POST
+    @ApiOperation(value = "Метод получения суммы времени между точками", response = Integer.class)
     @RolesAllowed("SERVICE")
     @Path("/get_points_time")
     @Produces(MediaType.APPLICATION_JSON)

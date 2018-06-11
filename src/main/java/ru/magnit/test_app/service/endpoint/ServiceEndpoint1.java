@@ -1,5 +1,7 @@
 package ru.magnit.test_app.service.endpoint;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import ru.magnit.test_app.model.Route;
  * @version 1.0
  */
 @Component
+@Api(value = "Service 1 API")
 @Path("/service1")
 public class ServiceEndpoint1 {
 
@@ -49,6 +52,7 @@ public class ServiceEndpoint1 {
      * @return List<PointGrap> список связей между точками графа
      */
     @GET
+    @ApiOperation(value = "Метод получения списка связей между точками графа (файл data.csv)", response = List.class)
     @PermitAll
     @Path("/graph")
     @Produces(MediaType.APPLICATION_JSON)
@@ -69,6 +73,7 @@ public class ServiceEndpoint1 {
      * @return Integer Идентификатор добавленного маршрута
      */
     @POST
+    @ApiOperation(value = "Метод добавления маршута", response = Integer.class)
     @PermitAll
     @Path("/add_route")
     @Produces(MediaType.APPLICATION_JSON)
@@ -112,6 +117,7 @@ public class ServiceEndpoint1 {
      * @return List<Route>
      */
     @GET
+    @ApiOperation(value = "Метод получения списка маршрутов (с точками маршрута)", response = List.class)
     @PermitAll
     @Path("/list_routes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -132,6 +138,7 @@ public class ServiceEndpoint1 {
      * @return Route Маршрут
      */
     @POST
+    @ApiOperation(value = "Метод получения маршрута", response = Route.class)
     @PermitAll
     @Path("/get_route")
     @Produces(MediaType.APPLICATION_JSON)

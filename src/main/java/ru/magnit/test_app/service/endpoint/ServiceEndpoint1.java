@@ -2,6 +2,7 @@ package ru.magnit.test_app.service.endpoint;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ServiceEndpoint1 {
     @Path("/add_route")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer addRoute(List<Integer> points) {
+    public Integer addRoute(@ApiParam(value = "Список точек маршрута", required = true) List<Integer> points) {
 
         LogManager.getLogger().info("Calling /service1/add_route");
         LogManager.getLogger().info("Points count: " + points.size());
@@ -143,7 +144,7 @@ public class ServiceEndpoint1 {
     @Path("/get_route")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Route getRoute(Integer routeId) {
+    public Route getRoute(@ApiParam(value = "Идентификатор маршрута", required = true) Integer routeId) {
 
         LogManager.getLogger().info("Calling /service1/get_route");
 

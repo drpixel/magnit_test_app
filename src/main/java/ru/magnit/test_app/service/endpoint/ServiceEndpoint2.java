@@ -2,6 +2,7 @@ package ru.magnit.test_app.service.endpoint;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.BasicAuthDefinition;
 import io.swagger.annotations.SecurityDefinition;
@@ -55,7 +56,7 @@ public class ServiceEndpoint2 {
     @Path("/get_points_time")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer getPointsTime(List<Integer> points) {
+    public Integer getPointsTime(@ApiParam(value = "Список точек маршрута", required = true) List<Integer> points) {
 
         LogManager.getLogger().info("Calling /service2/get_points_time");
 

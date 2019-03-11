@@ -3,6 +3,7 @@ package ru.magnit.test_app.math;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class TimeCalculator {
     public static Integer calcTime(List<PointGraph> pointGraph, List<Integer> points) {
 
         // сортируем точки перед расчетом (от меньшего к большему)
-        Collections.sort(points, (Integer o1, Integer o2) -> o2.compareTo(o1));
+        Collections.sort(points, Comparator.reverseOrder());
         
         // удаляем дубликаты
         List<Integer> dedupedPoints = points.stream().distinct().collect(Collectors.toList());
